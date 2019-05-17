@@ -1,0 +1,51 @@
+{% extends '@AppClient/common.html.twig' %}
+
+{% block stylesheet %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('build/news.css') }}">
+{% endblock %}
+
+{% block title %} О нас {% endblock %}
+
+{% block body %}
+	
+	{% block header %}
+		{{ parent() }}
+	{% endblock %}
+	
+	{% block wrapper_start %} {{ parent() }} {% endblock %}
+	
+	{% block main %}
+		
+		<div class="shared_block">
+			<div class="container about-us-container">
+				<div class="shared_block">
+					<div class="shared_caption">
+						<h1>О нас</h1>
+					</div>
+					<div class="shared-content">
+						<p>Умный интернет-магазин магазин «Смартмаркет» - для комфортной жизни в настоящем !</p>
+						<p>Мы представляем самые современные модели умной техники, электроники и различныхгаджетов по
+							низким ценам с доставкой по все Беларуси. На все товары имеетсяофициальная гарантия и
+							инструкция на русском языке.</p>
+						<p>В нашем интернет магазине вы можете получить подробную консультацию специалистов ибыстро
+							заказать умные часы, фитнес-браслеты, суперсовременные телевизоры, роботы-пылесосы,
+							нанонаушники и другие категории умной техники.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+	{% endblock %}
+	
+	{% block wrapper_end %} {{ parent() }} {% endblock %}
+	
+	{% block footer %}
+		{{ parent() }}
+	{% endblock %}
+	
+	{% block javascripts %}
+		{{ parent() }}
+	{% endblock %}
+
+{% endblock %}

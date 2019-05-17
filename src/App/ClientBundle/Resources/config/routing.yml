@@ -1,0 +1,64 @@
+#Synchronous routes
+app_client_homepage:
+    path:     /
+    defaults: { _controller: AppClientBundle:Client:catalogPage }
+#app_client_catalog_page:
+#    path: /catalog
+#    defaults: { _controller:  }
+app_client_catalog:
+    path: /catalog/{slug}
+    defaults: { _controller: AppClientBundle:Client:catalog }
+app_client_product:
+    path: /product/{productId}
+    defaults: { _controller: AppClientBundle:Client:product }
+    requirements:
+        productId: \d+
+app_client_news:
+    path: /news
+    defaults: { _controller: AppClientBundle:Client:news }
+app_client_news_by_category:
+    path: /news/{slug}
+    defaults: { _controller: AppClientBundle:Client:newsByCategory }
+app_client_article:
+    path: /news/article/{articleId}
+    defaults: { _controller: AppClientBundle:Client:article }
+    requirements:
+      articleId: \d+
+app_client_cart:
+    path: /cart
+    defaults: { _controller: AppClientBundle:Client:cart }
+app_client_contacts:
+    path: /contacts
+    defaults: { _controller: AppClientBundle:Client:contacts }
+app_client_delivery_and_payment:
+    path: /delivery-and-payment
+    defaults: { _controller: AppClientBundle:Client:deliveryAndPayment }
+app_client_guarantee:
+    path: /guarantee
+    defaults: { _controller: AppClientBundle:Client:guarantee }
+app_client_about_us:
+    path: /about-us
+    defaults: { _controller: AppClientBundle:Client:aboutUs }
+app_client_info_page:
+    path: /info/{slug}
+    defaults: { _controller: AppClientBundle:Client:infoPage }
+app_client_chat_page:
+    path: /chat
+    defaults: { _controller: AppClientBundle:Client:chatPage }
+
+
+#Asynchronous routes
+app_order_products_by_ids:
+    path: /api/order/get-products
+    defaults: { _controller: AppClientBundle:Order:getProductsByIds }
+    methods: POST
+
+app_order_recalculate:
+    path: /api/order/recalculate-promocode
+    defaults: { _controller: AppClientBundle:Order:recalculateByPromoCode }
+    methods: GET
+
+app_order_new:
+    path: /api/order/new
+    defaults: { _controller: AppClientBundle:Order:newOrder }
+    methods: POST

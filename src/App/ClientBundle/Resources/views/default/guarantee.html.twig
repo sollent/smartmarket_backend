@@ -1,0 +1,44 @@
+{% extends '@AppClient/common.html.twig' %}
+
+{% block stylesheet %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('build/news.css') }}">
+{% endblock %}
+
+{% block title %} Гарантия {% endblock %}
+
+{% block body %}
+	
+	{% block header %}
+		{{ parent() }}
+	{% endblock %}
+	
+	{% block wrapper_start %} {{ parent() }} {% endblock %}
+	
+	{% block main %}
+		
+		<div class="shared_block">
+			<div class="container">
+				<div class="shared_caption">
+					<h1>Гарантия</h1>
+				</div>
+				<div class="shared-content">
+					<p>Все товары в нашем интернет-магазине имеют официальную гарантию. В случаенеисправности вы можете обратиться напрямую к менеджерам нашего интернет-магазинаили в одни из сервисных центров, указанных в гарантийном талоне.</p>
+					<p>Жителям регионов адрес сервисных центров и порядок действий следует уточнять уменеджеров</p>
+				</div>
+			</div>
+		</div>
+	
+	{% endblock %}
+	
+	{% block wrapper_end %} {{ parent() }} {% endblock %}
+	
+	{% block footer %}
+		{{ parent() }}
+	{% endblock %}
+	
+	{% block javascripts %}
+		{{ parent() }}
+	{% endblock %}
+
+{% endblock %}

@@ -1,0 +1,441 @@
+{% extends '@AppClient/common.html.twig' %}
+
+{% block stylesheet %}
+	{{ parent() }}
+{% endblock %}
+
+{% block title %} Корзина {% endblock %}
+
+{% block body %}
+	
+	{% block header %}
+		{{ parent() }}
+	{% endblock %}
+	
+	{% block wrapper_start %} {{ parent() }} {% endblock %}
+	
+	{% block main %}
+		
+		<div class="container">
+			<div class="cart_block">
+				<div id="cartContainer">
+					<div class="modal-content no-padding">
+						<div class="cart-header" id="cartModalHeader">
+							<i id="modal-main-icon" class="material-icons icon-in-header">shopping_cart</i>
+							<h3 id="modal-main-caption">Ваша корзина</h3>
+						</div>
+						
+						{#Special hidden button to scroll to top (validation step)#}
+						<button id="scroll-to-top-validation" class="dn"></button>
+						<button id="scroll-to-top-success" class="dn"></button>
+						
+						<div class="cart-content" id="firstStep">
+							<div class="row head-row hide-on-med-and-down">
+								<div class="col xl5 l5 m7 s7">
+									<h3 class="cart-head-caption">Название</h3>
+								</div>
+								<div class="col xl2 l2 m2 s2 offset-xl2 offset-l2">
+									<h3 class="cart-head-caption hide-on-med-and-down">Количество</h3>
+									<h3 class="cart-head-caption hide-on-large-only">Кол-во</h3>
+								</div>
+								<div class="col xl3 l3 m3 s3">
+									<h3 class="cart-head-caption">Цена</h3>
+								</div>
+							</div>
+							
+							{#<div class="row product-row">#}
+							{#<div class="col xl5 l5 m7 s12">#}
+							{#<div class="row margin-min">#}
+							{#<div class="col xl6 l6 m6 s6 image-col">#}
+							{#<div class="image-in-cart">#}
+							{#<img class="materialboxed" src="{{ asset('assets/img/pruducts/1.jpg') }}" alt="">#}
+							{#</div>#}
+							{#</div>#}
+							{#<div class="col xl6 l6 m6 s6 product-info-col">#}
+							{#<div class="name-of-product">#}
+							{#<h5>Умные часы DZ09</h5>#}
+							{#<p>Lorem ipsum dolor sit amet. Adipisci exercitationem</p>#}
+							{#</div>#}
+							{#</div>#}
+							{#</div>#}
+							{#</div>#}
+							{#<div class="col xl2 l2 m2 s2 offset-xl2 offset-l2 hide-on-small-and-down">#}
+							{#<div class="count-of-product">#}
+							{#<span>3</span>#}
+							{#</div>#}
+							{#</div>#}
+							{#<div class="col xl3 l3 m3 s3 hide-on-small-and-down">#}
+							{#<div class="price-of-product">#}
+							{#<span>76 BYN</span>#}
+							{#</div>#}
+							{#</div>#}
+							{#<div class="col s12 hide-on-med-and-up count-price-on-mobile">#}
+							{#<div class="price-of-product-mobile">#}
+							{#<span>76 BYN</span>#}
+							{#</div>#}
+							{#<div class="count-of-product-mobile">#}
+							{#<span>3 шт.</span>#}
+							{#</div>#}
+							{#</div>#}
+							{#</div>#}
+							{#<div class="row product-row">#}
+							{#<div class="col xl5 l5 m7 s12">#}
+							{#<div class="row margin-min">#}
+							{#<div class="col xl6 l6 m6 s6 image-col">#}
+							{#<div class="image-in-cart">#}
+							{#<img class="materialboxed" src="{{ asset('assets/img/pruducts/2.jpg') }}" alt="">#}
+							{#</div>#}
+							{#</div>#}
+							{#<div class="col xl6 l6 m6 s6 product-info-col">#}
+							{#<div class="name-of-product">#}
+							{#<h5>Умные часы DZ09</h5>#}
+							{#<p>Lorem ipsum dolor sit amet. Adipisci exercitationem</p>#}
+							{#</div>#}
+							{#</div>#}
+							{#</div>#}
+							{#</div>#}
+							{#<div class="col xl2 l2 m2 s2 offset-xl2 offset-l2 hide-on-small-and-down">#}
+							{#<div class="count-of-product">#}
+							{#<span>3</span>#}
+							{#</div>#}
+							{#</div>#}
+							{#<div class="col xl3 l3 m3 s3 hide-on-small-and-down">#}
+							{#<div class="price-of-product">#}
+							{#<span>42 BYN</span>#}
+							{#</div>#}
+							{#</div>#}
+							{#<div class="col s12 hide-on-med-and-up count-price-on-mobile">#}
+							{#<div class="price-of-product-mobile">#}
+							{#<span>42 BYN</span>#}
+							{#</div>#}
+							{#<div class="count-of-product-mobile">#}
+							{#<span>1 шт.</span>#}
+							{#</div>#}
+							{#</div>#}
+							{#</div>#}
+							
+							{#<div class="cart-bonus-block">#}
+							{#<h2 class="bones-caption">В подарок вы получите</h2>#}
+							{#<div class="row product-row">#}
+							{#<div class="col xl5 l5 m7 s12">#}
+							{#<div class="row margin-min">#}
+							{#<div class="col xl6 l6 m6 s6 image-col">#}
+							{#<div class="image-in-cart">#}
+							{#<img class="materialboxed" src="{{ asset('assets/img/pruducts/pleer.png') }}" alt="">#}
+							{#</div>#}
+							{#</div>#}
+							{#<div class="col xl6 l6 m6 s6 product-info-col">#}
+							{#<div class="name-of-product">#}
+							{#<h5>Умные часы DZ09</h5>#}
+							{#<p>Lorem ipsum dolor sit amet. Adipisci exercitationem</p>#}
+							{#</div>#}
+							{#</div>#}
+							{#</div>#}
+							{#</div>#}
+							{#<div class="col xl2 l2 m2 s2 offset-xl2 offset-l2 hide-on-small-and-down">#}
+							{#<div class="count-of-product">#}
+							{#<span>3</span>#}
+							{#</div>#}
+							{#</div>#}
+							{#<div class="col xl3 l3 m3 s3 hide-on-small-and-down">#}
+							{#<div class="price-of-product">#}
+							{#<span>Бесплатно</span>#}
+							{#</div>#}
+							{#</div>#}
+							{#<div class="col s12 hide-on-med-and-up count-price-on-mobile">#}
+							{#<div class="price-of-product-mobile">#}
+							{#<span>Бесплатно</span>#}
+							{#</div>#}
+							{#<div class="count-of-product-mobile hide">#}
+							{#<span>1 шт.</span>#}
+							{#</div>#}
+							{#</div>#}
+							{#</div>#}
+							{#</div>#}
+						
+						</div>
+						
+						<div class="" id="secondStep">
+							<div class="row row-with-tabs">
+								<div class="col s12">
+									<ul class="tabs cart-tabs">
+										<li class="tab col s3"><a href="#secondStepMinsk" class="active" id="tabMinsk">По
+												Минску</a></li>
+										<li class="tab col s3"><a href="#secondStepMail" id="tabMail">По почте</a></li>
+									</ul>
+								</div>
+								<div id="secondStepMinsk">
+									<div class="row row-name-phone">
+										<div class="input-field col s6" id="clientNameBlock">
+											<i class="material-icons prefix">account_circle</i>
+											<input id="clientNameInput" type="text" class="validate">
+											<label for="clientNameInput">Ваше имя</label>
+										</div>
+										<div class="input-field col s6" id="clientPhoneBlock">
+											<i class="material-icons prefix">phone</i>
+											<input id="clientPhoneInput" type="tel" class="validate form-control">
+											<label for="clientPhoneInput">Номер телефона</label>
+											{#<span class="helper-text" data-error="wrong" data-success="right">Helper text</span>#}
+										</div>
+									</div>
+									<div class="row row-checkboxes delivery-ways">
+										<div class="delivery-ways-caption">
+											<span>Выберите способ доставки:</span>
+										</div>
+										<label class="delivery-way-first">
+											<input type="checkbox" value="driver"
+												   class="filled-in delivery-way-checkbox" checked="checked"/>
+											<span id="driver-way-span">Доставка курьером</span>
+										</label>
+										<label class="delivery-way">
+											<input type="checkbox" value="own" class="filled-in delivery-way-checkbox"
+												   checked="checked"/>
+											<span>Самовывоз</span>
+										</label>
+									</div>
+									<div class="delivery-info">
+										<div class="delivery-driver-info">
+											<div class="input-field col s12">
+												<input type="text" id="driver-cost" value="5 BYN">
+												<label for="driver-cost">Стоимость доставки</label>
+											</div>
+										</div>
+										<div class="delivery-own-info dn">
+											<p><span>Вы можете забрать товар по адресам:</span> Рафиева 52-3, Пр-т
+												газеты звезда 48.</p>
+										</div>
+										<div class="delivery-address" id="delivery-address-block">
+											<div class="input-field col s12">
+												<i class="material-icons prefix">textsms</i>
+												<input type="text" id="clientAddressInput" class="autocomplete">
+												<label for="clientAddressInput">Ваша улица</label>
+											</div>
+											<div class="input-field col l4 m4 s11">
+												<input id="homeInfoMinsk" type="number" class="validate">
+												<label for="homeInfoMinsk">Дом/Корпус</label>
+											</div>
+											<div class="input-field col l4 m4 s11">
+												<input id="apartmentNumberMinsk" type="number" class="validate">
+												<label for="apartmentNumberMinsk">Квартира</label>
+											</div>
+										</div>
+										<div class="input-client-date">
+											<div class="delivery-date-caption">
+												<span>Выберите подходящую дату доставки:</span>
+											</div>
+											<label class="delivery-date-first">
+												<input type="checkbox"
+													   id="clientTodayInput"
+													   class="filled-in delivery-way-checkbox" checked="checked"/>
+												<span>Сегодня</span>
+											</label>
+											<label class="delivery-date">
+												<input type="checkbox" value="own" id="clientOtherDateInput"
+													   class="filled-in delivery-way-checkbox"/>
+												<span>Выбрать свою дату</span>
+											</label>
+											<input type="text" id="clientDeliveryDateInput" class="datepicker">
+										</div>
+										<div class="delivery-time">
+											<span class="action-name">Выберите удобное для вас время: </span>
+											<label>
+												<input id="clientDeliveryTimeInput" type="time" name="time">
+											</label>
+										</div>
+									</div>
+								</div>
+								<div id="secondStepMail">
+									{#<div class="row row-name-phone">#}
+									{#FullName#}
+									{#<div class="input-field col l6 m10 s12">#}
+									{#<i class="material-icons prefix">account_circle</i>#}
+									{#<input id="clientFullNameInput_mail" type="text" class="validate">#}
+									{#<label for="clientFullNameInput_mail">Ваше ФИО</label>#}
+									{#</div>#}
+									{#Phone number#}
+									{#</div>#}
+									<div class="row row-mail-location">
+										<div class="input-field col l6 m10 s12">
+											<i class="material-icons prefix">account_circle</i>
+											<input id="clientFullNameInput_mail" type="text" class="validate">
+											<label for="clientFullNameInput_mail">Ваше ФИО</label>
+										</div>
+										<div class="input-field col l6 m10 s12">
+											<i class="material-icons prefix">location_city</i>
+											<input id="clientCityInput" type="text" class="validate">
+											<label for="clientCityInput">Введите город/деревню</label>
+										</div>
+										<div class="input-field col l6 m10 s12">
+											<i class="material-icons prefix">home</i>
+											<input id="clientStreetInput" type="text" class="validate">
+											<label for="clientStreetInput">Введите улицу</label>
+										</div>
+										<div class="input-field col l6 m10 s12">
+											<i class="material-icons prefix">phone</i>
+											<input id="clientPhoneInput_mail" type="tel" class="validate">
+											<label for="clientPhoneInput_mail">Номер телефона</label>
+										</div>
+									</div>
+									<div class="mail-other-information">
+										<div class="input-field col l4 m4 s11">
+											<input id="mailIndex" type="number" class="validate">
+											<label for="mailIndex">Почтовый индекс</label>
+										</div>
+										<div class="input-field col l4 m4 s11">
+											<input id="homeInfo" type="number" class="validate">
+											<label for="homeInfo">Дом/Корпус</label>
+										</div>
+										<div class="input-field col l4 m4 s11">
+											<input id="apartmentNumber" type="number" class="validate">
+											<label for="apartmentNumber">Квартира</label>
+										</div>
+									</div>
+									<div id="delivery-mail-ways" class="row row-checkboxes delivery-ways">
+										<div class="delivery-ways-caption">
+											<span>Выберите способ которым вы хотите получать уведомления о статусе заказа:</span>
+										</div>
+										<label class="vk-notification">
+											<input type="checkbox" value="vk" class="filled-in delivery-way-checkbox"
+												   checked="checked"/>
+											<span>Уведомления VK</span>
+										</label>
+										<label class="sms-notification">
+											<input type="checkbox" value="sms" class="filled-in delivery-way-checkbox"
+												   checked="checked"/>
+											<span>SMS оповещения</span>
+										</label>
+										{#<label class="telegram-notification">#}
+										{#<input type="checkbox" class="filled-in delivery-way-checkbox" checked="checked" />#}
+										{#<span>Уведомления Telegram</span>#}
+										{#</label>#}
+									</div>
+								</div>
+								<div class=""><a class="btn nextButton" id="secondNextButton">Продолжить</a></div>
+							</div>
+							
+						</div>
+						
+						<div class="" id="thirdStep">
+							
+							<div class="thirdStepBlock">
+								<div class="check-order" id="checkOrder">
+								
+								</div>
+								<div class="ordered-products-and-sum">
+								
+								</div>
+								<div class="promo-code-info">
+									<h3>Получите бесплатный промокод</h3>
+									<p>Получите бесплатный промокод. Он будет выдан вам сразу после оформления заказа. Данный промокод предоставляет скидку 5% на любой товар или товары в нашем магазине. Вы также можете делиться промокодом с друщьями и знакомыми.</p>
+									<div class="promo-code-checkbox">
+										<div class="input-field email-for-promo">
+											<input id="emailForPromo" type="email" class="validate">
+											<label for="emailForPromo">Email</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row success-description-in-third-step" style="margin-bottom: 65px;">
+								<div class="col l6">
+									<h5>Ваш заказ</h5>
+									<p>Ваш заказ будет принят и успешно обработан нашими менеджерами.</p>
+								</div>
+								<div class="col l6">
+									<h5>Доставка по Минску</h5>
+									<p>Ваш заказ будет доставлен по Минске курьером. Желаемое время которое, вы указали курьер будет учитивать при доставке вам товара. Если курьер по каким то причинам не будет успевать доставить его вам в это время, он незамедлительно свяжется с вами.</p>
+								</div>
+								<div class="col l6">
+									<h5>Доставка по почте</h5>
+									<p>После успешной обработки ваш заказ будет отправлен наложным платежом по почте. Мы осуществляем отправку во все города Беларуси. Поэтому можете быть уверены в том, что ваш заказ обязательно до вас дойдет. Среднее время доставки товара по почте 3-5 дней.</p>
+								</div>
+								<div class="col l6">
+									<h5>Получение промокода</h5>
+									<p>Вы получите промокод нашего интернет-магазина. Вы можете успешно использовать его при дальнейших покупках,  а также делиться им со своими друзьями и знакомыми. Данный промокод предоставляемт скидку 5%.</p>
+								</div>
+							</div>
+							
+							<div class=""><a class="btn nextButton order-button" id="thirdNextButton">Оформить</a></div>
+						
+						</div>
+						
+						<div class="modal-footer cart-footer">
+							<div class="cart-footer-container">
+								<div class="button-left hide">
+									<i class="material-icons cart-icon-left">keyboard_arrow_left</i><a id="prevStep"
+																									   class="btn-flat">Назад</a>
+								</div>
+								<ul class="tabs cart-tabs footer-cart-tabs hide-on-small-and-down">
+									<li class="tab col s3"><a id="firstStepLink" onclick="tabSelected('first')"
+															  href="#firstStep" class="active">Корзина</a></li>
+									<li class="tab col s3 disabled"><a id="secondStepLink"
+																	   onclick="tabSelected('second')"
+																	   href="#secondStep">Оформление</a></li>
+									<li class="tab col s3 disabled"><a id="thirdStepLink" onclick="tabSelected('third')"
+																	   href="#thirdStep">Проверка</a></li>
+								</ul>
+								<div class="button-right" id="button-right">
+									<a id="nextStep" class="btn-flat">Продолжить</a><i
+											class="material-icons cart-icon-right">keyboard_arrow_right</i>
+								</div>
+							</div>
+						</div>
+					
+					</div>
+					
+					{#Ajax loader#}
+					<div class="preloader" id="loader-block"></div>
+					
+					<div class="success-block dn">
+						<div class="success-order-alert">
+							<span>Вы успешно оформили заказ</span>
+						</div>
+						<div class="promocode-response">
+						
+						</div>
+						<div class="row success-description">
+							<div class="col l6">
+								<h5>Ваш заказ</h5>
+								<p>Ваш заказ принят и уже успешно обрабатывается нашими менеджерами. В течении нескольких минут ваш заказ будет обработан.</p>
+							</div>
+							<div class="col l6">
+								<h5>Доставка по Минску</h5>
+								<p>Ваш заказ будет доставлен по Минске курьером. Желаемое время которое, вы указали курьер будет учитивать при доставке вам товара. Если курьер по каким то причинам не будет успевать доставить его вам в это время, он незамедлительно свяжется с вами.</p>
+							</div>
+							<div class="col l6">
+								<h5>Доставка по почте</h5>
+								<p>После успешной обработки ваш заказ будет отправлен наложным платежом по почте. Мы осуществляем отправку во все города Беларуси. Поэтому можете быть уверены в том, что ваш заказ обязательно до вас дойдет. Среднее время доставки товара по почте 3-5 дней.</p>
+							</div>
+							<div class="col l6">
+								<h5>Получение промокода</h5>
+								<p>Вы получили промокод нашего интернет-магазина. Вы можете успешно использовать его при дальнейших покупках,  а также делиться им со своими друзьями и знакомыми. Данный промокод предоставляемт скидку 5%.</p>
+							</div>
+						</div>
+					</div>
+				
+				</div>
+			</div>
+		</div>
+		
+	
+	{% endblock %}
+	
+	{% block wrapper_end %} {{ parent() }} {% endblock %}
+	
+	{% block footer %}
+		{{ parent() }}
+	{% endblock %}
+	
+	{% block javascripts %}
+		<script src="{{ asset('assets/js/cart.js') }}"></script>
+		{{ parent() }}
+		<script src="{{ asset('assets/libs/jquery/jquery.maskedinput.min.js') }}"></script>
+		<script>
+            $(document).ready(function () {
+                $("#clientPhoneInput").mask("+375 (99) 999-99-99");
+                $("#clientPhoneInput_mail").mask("+375 (99) 999-99-99");
+            });
+		</script>
+		{#<script src="{{ asset('assets/js/common.js') }}"></script>#}
+	{% endblock %}
+{% endblock %}

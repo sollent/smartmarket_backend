@@ -1,0 +1,92 @@
+{% extends '@AppClient/common.html.twig' %}
+
+{% block stylesheet %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('build/news.css') }}">
+{% endblock %}
+
+{% block metaInformation %}
+	<meta name="description" content="{% if article.seoInformation %}{{ article.seoInformation.description }}{% else %}{{ article.shortDescription }}{% endif %}">
+{% endblock %}
+{% block title %}{% if article.seoInformation %}{{ article.seoInformation.title }}{% else %}{{ article.title }}{% endif %}{% endblock %}
+
+{% block body %}
+	
+	{% block header %}
+		{{ parent() }}
+	{% endblock %}
+	
+	{% block wrapper_start %} {{ parent() }} {% endblock %}
+	
+	{% block main %}
+		
+		<div class="acticle_block">
+			<div class="container article-container">
+				<div class="row row-article-breadcrumbs">
+					<div class="article-breadcrumbs">
+						<div class="col s12">
+							<a href="#!" class="breadcrumb">Новости</a>
+							<a href="#!" class="breadcrumb">{{ article.category.name }}</a>
+							<a href="#!" class="breadcrumb">{{ article.title }}</a>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col l8 article-col">
+						<div class="article-content">
+							<div class="article-pudate">
+								Опубликованно: <span>{{ article.createdAt | date }}</span>
+							</div>
+							<div class="article-likes">
+								<span>{{ article.likes }} likes</span>
+							</div>
+							<div class="article-caption">
+								<h2>{{ article.title }}</h2>
+							</div>
+							<div class="container-fluid">
+								<div class="article-image">
+									<img src="{{ news_images_path ~ article.previewImage }}" alt="">
+								</div>
+							</div>
+							<div class="article-text">
+								{{ article.content | raw }}
+							</div>
+						</div>
+					</div>
+					<div class="col xl4 l4 popular_news hide-on-med-and-down">
+						<div class="card">
+							<div class="container">
+								<div class="card-title">Популярное</div>
+								<div class="card-content no-padding">
+									<ul class="popular_news_items">
+										<li class="news_item"><a href="">Как сформировать бюджет на покупку сайта?</a>
+										</li>
+										<li class="news_item"><a href="">Вы знали что DZ09 водонепроницаемы?</a></li>
+										<li class="news_item"><a href="">Главная новость нашего магазина</a></li>
+										<li class="news_item"><a href="">Как вы думаете, то мы проготовили сегодня?</a>
+										</li>
+										<li class="news_item"><a href="">Каждому именнику в подарок MP3 плеер</a></li>
+										<li class="news_item"><a href="">Использование промо-кодов на нашем сайте</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+	{% endblock %}
+	
+	{% block wrapper_end %} {{ parent() }} {% endblock %}
+	
+	{% block footer %}
+		{{ parent() }}
+	{% endblock %}
+	
+	{% block javascripts %}
+		{{ parent() }}
+	{% endblock %}
+
+{% endblock %}

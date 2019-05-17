@@ -1,0 +1,62 @@
+#CircleCI
+version: 2
+jobs:
+  build:
+    working_directory: ~/Desktop/sollento/sollentoCirlceCI/sollentomarket
+    docker:
+      - image: circleci/php:7.2.4-apache-stretch-node-browsers
+        environment:
+          APP_ENV: test
+          DATABASE_URL: mysql://root:root@127.0.0.1/sollento_market
+      - image: circleci/mysql:5.7
+        environment:
+          MYSQL_ROOT_PASSWORD: 'root'
+          MYSQL_DATABASE: sollento_market
+    steps:
+      - checkout
+      - run:
+          name: Composer
+          command: sudo composer self-update
+      - run:
+          name: Composer install
+          command: composer install -n
+  deploy:
+    working_directory: ~/Desktop/sollento/sollentoCirlceCI/sollentomarket
+    docker:
+      - image: circleci/php:7.2.4-apache-stretch-node-browsers
+    steps:
+      - checkout
+      - run:
+          name: Install PHP MySQL
+          command: sudo docker-php-ext-install pdo_mysql
+      - run:
+          name: Composer install
+          command: composer install -n --prefer-dist
+      - run:
+          name: Clear cache
+          command: php bin/console cache:clear --no-interaction
+      - run:
+          name: Add droplet
+          command: ssh-keyscan -H $DROPLET_IP >> ~/.ssh/known_hosts
+      - run:
+          name: Pre-deploy
+          command: ssh -T $DROPLET_USER@$DROPLET_IP < bin/deploy/pre_deploy.sh
+      - run:
+          name: Delpoy code
+          command: rsync -vzcrSLhp --exclude '.env' --delete ~/Desktop/sollento/sollentoCirlceCI/sollentomarket $DROPLET_USER@$DROPLET_IP:/var/www/www-root/data/www/smartmarket.by
+      - run:
+          name: Post deploy
+          command: ssh -T $DROPLET_USER@$DROPLET_IP < bin/deploy/deploy.sh
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
+
+

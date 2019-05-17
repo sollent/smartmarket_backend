@@ -1,0 +1,18 @@
+# This file is a "template" of what your parameters.yml file should look like
+# Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
+# https://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
+parameters:
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: sollento_market
+    database_user: root
+    database_password: root
+    mailer_transport: gmail
+    mailer_host: mail.smartmarket.by
+    mailer_user: smartmarket.by.company@gmail.com
+    mailer_password: Pahan19980389
+    product_images_directory: '%kernel.project_dir%/web/uploads/img/product'
+    news_images_directory: '%kernel.project_dir%/web/uploads/img/news'
+    secret: ThisTokenIsNotSoSecretChangeIt
+    jwt_key_pass_phrase: sollent
+

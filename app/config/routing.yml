@@ -1,0 +1,12 @@
+app_admin:
+    resource: "@AppAdminBundle/Controller/"
+    prefix: /admin
+    type: annotation
+
+app_client:
+    resource: "@AppClientBundle/Resources/config/routing.yml"
+    prefix:   /
+#fos_user:
+#    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+api_login_check:
+    path: /admin/login_check

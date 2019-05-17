@@ -1,0 +1,11 @@
+<a href="{{ path('app_client_article', { 'articleId': id }) }}">
+	<div class="card card-news">
+		<div class="card-image" style="background-image: url('{{ news_images_path ~ img }}')">
+			<div class="shadow-space"></div>
+			<h1 class="card-title center-align">{{ title }}</h1>
+		</div>
+		<div class="card-content">
+			<p>{{ shortDescription }}</p>
+		</div>
+	</div>
+</a>

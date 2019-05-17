@@ -1,0 +1,164 @@
+{% extends '@AppClient/common.html.twig' %}
+
+{% block stylesheet %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('build/news.css') }}">
+{% endblock %}
+
+{% block title %} Новости {% endblock %}
+
+{% block body %}
+	
+	{% block header %}
+		{{ parent() }}
+	{% endblock %}
+	
+	{% block wrapper_start %} {{ parent() }} {% endblock %}
+	
+	{% block main %}
+		
+		<div class="container">
+			<div class="news_block">
+				<div class="col s12 site-breadcrumb site-breadcrumb-news">
+					<a href="#!" class="breadcrumb">Новости</a>
+					{% if currentCategory == 'all' %}
+						<a href="#!" class="breadcrumb">Все</a>
+					{% else %}
+						<a href="#!" class="breadcrumb">{{ currentCategory.name }}</a>
+					{% endif %}
+					{% if currentSubCategory is not null %}
+						{% if currentSubCategory == 'all' %}
+							<a href="#!" class="breadcrumb">Все</a>
+						{% else %}
+							<a href="#!" class="breadcrumb">{{ currentSubCategory.name }}</a>
+						{% endif %}
+					{% endif %}
+				</div>
+				<div class="row before_news">
+					<div class="col xl3 l3 m3">
+						<div class="main_caption">
+							<h1>Новости</h1>
+						</div>
+					</div>
+					<div class="col xl9 l9 m8 s12 search-news-col">
+						<nav class="search_bar">
+							<div class="nav-wrapper">
+								<form>
+									<div class="input-field">
+										<input id="search" type="search" placeholder="Search" required>
+										<label class="label-icon" for="search"><i class="material-icons">search</i></label>
+										<i class="material-icons">close</i>
+									</div>
+								</form>
+							</div>
+						</nav>
+					</div>
+				</div>
+				<div class="row news-categories">
+					<ul class="categories">
+						<li><a class="{% if currentCategory == 'all' %}active{% endif %}" href="{{ path('app_client_news') }}">Все</a></li>
+						{% if currentCategory.id is defined %}
+							{% set current_category = currentCategory.id %}
+						{% else %}
+							{% set current_category = -1 %}
+						{% endif %}
+						{% for category in categories %}
+								<li><a class="{% if category.id == current_category %}active{% endif %}" href="{{ path('app_client_news_by_category', { 'slug': category.slug }) }}">{{ category.name }}</a></li>
+						{% endfor %}
+					</ul>
+				</div>
+				<div class="row">
+					<div class="col xl8 l8 main_news">
+						<a href="{{ path('app_client_article', { 'articleId': mainArticle.id }) }}">
+							<div class="card">
+								<div class="card-image" style="background-image: url('{{ news_images_path ~ mainArticle.previewImage }}')">
+									<div class="shadow-space"></div>
+									<h1 class="card-title center-align">{{ mainArticle.title }}</h1>
+								</div>
+								<div class="card-content">
+									<p>{{ mainArticle.shortDescription }}</p>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="col xl4 l4 popular_news hide-on-med-and-down">
+						<div class="card">
+							<div class="container">
+								<div class="card-title">Популярное</div>
+								<div class="card-content no-padding">
+									<ul class="popular_news_items">
+										{% for article in popularNews %}
+											<li class="news_item"><a href="{{ path('app_client_article', { 'articleId': article.id }) }}">{{ article.title }}</a></li>
+										{% endfor %}
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col m12 s12 popular_news show-on-medium-and-down hide-on-large-only">
+						<div class="card">
+							<div class="container">
+								<div class="card-title">Популярное</div>
+								<div class="card-content no-padding">
+									<ul class="popular_news_items">
+										<li class="news_item"><a href="">Как сформировать бюджет на покупку сайта?</a></li>
+										<li class="news_item"><a href="">Вы знали что DZ09 водонепроницаемы?</a></li>
+										<li class="news_item"><a href="">Главная новость нашего магазина</a></li>
+										<li class="news_item"><a href="">Как вы думаете, то мы проготовили сегодня?</a></li>
+										<li class="news_item"><a href="">Каждому именнику в подарок MP3 плеер</a></li>
+										<li class="news_item"><a href="">Использование промо-кодов на нашем сайте</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				{% if currentSubCategory and news | length > 0 %}
+					<div class="row news-categories news-sub-categories">
+						<ul class="categories">
+							<li><a class="{% if currentSubCategory == 'all' %}active{% endif %}" href="{{ path('app_client_news_by_category', { 'slug': currentCategory.slug }) }}">Все</a></li>
+							{% if currentSubCategory.id is defined %}
+								{% set current_category = currentSubCategory.id %}
+							{% else %}
+								{% set current_category = -1 %}
+							{% endif %}
+							{% for subCategory in currentCategory.subCategories %}
+								<li><a class="{% if subCategory.id == current_category %}active{% endif %}" href="{{ path('app_client_news_by_category', { 'slug': subCategory.slug }) }}">{{ subCategory.name }}</a></li>
+							{% endfor %}
+						</ul>
+					</div>
+				{% endif %}
+				<div class="row news_list">
+					{% for item in news %}
+						<div class="col xl4 l4 m6 s12">
+							{% include '@AppClient/components/_news-item.html.twig' with {
+								'id': item.id,
+								'title': item.title,
+								'img': item.previewImage,
+								'shortDescription': item.shortDescription | slice(1, 130)
+							} %}
+						</div>
+					{% endfor %}
+					{% if news | length == 0 %}
+						<div class="no-news">
+							<p class="center-align">В этой категории пока нет новостей...</p>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	
+	{% endblock %}
+	
+	{% block wrapper_end %} {{ parent() }} {% endblock %}
+	
+	{% block footer %}
+		{{ parent() }}
+	{% endblock %}
+	
+	{% block javascripts %}
+		{{ parent() }}
+		<script src="{{ asset('assets/js/common.js') }}"></script>
+	{% endblock %}
+	
+{% endblock %}

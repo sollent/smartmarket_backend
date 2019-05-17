@@ -1,0 +1,148 @@
+{% extends '@AppClient/common.html.twig' %}
+
+{% block stylesheet %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('build/news.css') }}">
+{% endblock %}
+
+{% block title %} Контакты {% endblock %}
+
+{% block body %}
+	
+	{% block header %}
+		{{ parent() }}
+	{% endblock %}
+	
+	{% block wrapper_start %} {{ parent() }} {% endblock %}
+	
+	{% block main %}
+	
+		<div class="contacts_block">
+			<div class="container-fluid contacts-container">
+				<div class="row">
+					<div class="col l3 col-with-social hide-on-med-and-down">
+						<div class="social-margin-top">
+							<div class="social_caption">
+								<h2>Свяжитесь с нами</h2>
+							</div>
+							<div class="social-content">
+								<div class="social-item">
+									<object
+										type="image/svg+xml"
+										data="{{ asset('assets/social-icons/vk.svg') }}"
+										class="svg-item"
+									>
+										<img src="{{ asset('assets/social-icons/vk.svg') }}" alt="">
+									</object>
+								</div>
+								<div class="social-item">
+									<object
+										type="image/svg+xml"
+										data="{{ asset('assets/social-icons/facebook.svg') }}"
+										class="svg-item"
+									>
+										<img src="{{ asset('assets/social-icons/facebook.svg') }}" alt="">
+									</object>
+								</div>
+								<div class="social-item">
+									<object
+										type="image/svg+xml"
+										data="{{ asset('assets/social-icons/instagram.svg') }}"
+										class="svg-item"
+									>
+										<img src="{{ asset('assets/social-icons/instagram.svg') }}" alt="">
+									</object>
+								</div>
+								{#<div class="social-item">#}
+									{#<object#}
+										{#type="image/svg+xml"#}
+										{#data="{{ asset('assets/social-icons/telegram.svg') }}"#}
+										{#class="svg-item"#}
+									{#>#}
+										{#<img src="{{ asset('assets/social-icons/telegram.svg') }}" alt="">#}
+									{#</object>#}
+								{#</div>#}
+							</div>
+						</div>
+					</div>
+					<div class="col l9 m12 s12 col-with-contacts">
+						<div class="container">
+							<div class="row">
+								<div class="col l12 s12">
+									<div class="contacts-margin-top">
+										<div class="contacts_caption">
+											<h1>Контакты</h1>
+										</div>
+										<div class="contacts-content">
+											<div class="contact-item">
+												<span class="contact-name">Адресс:</span>
+												<span class="contact-value">ул. Рафиева д.40, кв.3. ул. Дирежерская корпус 8, офис 450.</span>
+											</div>
+											<div class="contact-item">
+												<span class="contact-name">E-mail:</span>
+												<span class="contact-value">smartmarket.by.company@gmail.com, smartmarket@smartmarket.by</span>
+											</div>
+											<div class="contact-item">
+												<span class="contact-name">Телефоны:</span>
+												<span class="contact-value">+375 25 929-57-78, +375 44 678-54-45</span>
+											</div>
+										</div>
+										<div class="back-call">
+										
+										</div>
+										<div class="social-column hide-on-large-only">
+											<div class="social_caption-row">
+												<h2>Свяжитесь с нами</h2>
+											</div>
+											<div class="social-content">
+												<div class="social-item">
+													<object
+															type="image/svg+xml"
+															data="{{ asset('assets/social-icons/vk.svg') }}"
+															class="svg-item-row"
+													>
+														<img src="{{ asset('assets/social-icons/vk.svg') }}" alt="">
+													</object>
+												</div>
+												<div class="social-item">
+													<object
+															type="image/svg+xml"
+															data="{{ asset('assets/social-icons/facebook.svg') }}"
+															class="svg-item-row"
+													>
+														<img src="{{ asset('assets/social-icons/facebook.svg') }}" alt="">
+													</object>
+												</div>
+												<div class="social-item">
+													<object
+															type="image/svg+xml"
+															data="{{ asset('assets/social-icons/instagram.svg') }}"
+															class="svg-item-row"
+													>
+														<img src="{{ asset('assets/social-icons/instagram.svg') }}" alt="">
+													</object>
+												</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+	{% endblock %}
+	
+	{% block wrapper_end %} {{ parent() }} {% endblock %}
+	
+	{% block footer %}
+		{{ parent() }}
+	{% endblock %}
+	
+	{% block javascripts %}
+		{{ parent() }}
+		<script src="{{ asset('assets/js/common.js') }}"></script>
+	{% endblock %}
+
+{% endblock %}

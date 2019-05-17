@@ -1,0 +1,41 @@
+<div class="sidenav" id="mobile-demo">
+	<ul class="sidenav-menu">
+		<li class="{% if app.request.get('_route') == 'app_client_homepage' %}active{% endif %}"><a href="{{ path('app_client_homepage') }}"><i class="material-icons">apps</i>Каталог</a></li>
+		<li class="{% if app.request.get('_route') == 'app_client_news' %}active{% endif %}"><a href="{{ path('app_client_news') }}"><i class="material-icons">content_paste</i>Новости</a></li>
+		<li><a href=""><i class="material-icons">local_phone</i>Контакты</a></li>
+		<li><a href=""><i class="material-icons">local_phone</i>Доставка и оплата</a></li>
+		<li><a href=""><i class="material-icons">local_phone</i>Гарантия</a></li>
+		<li><a href=""><i class="material-icons">people</i>О нас</a></li>
+	</ul>
+	<div class="sidenav-cart-block">
+		<div class="container">
+			<div class="sidenav-cart-button center">
+				<a id="responsiveCardButton" href="{{ path('app_client_cart') }}" class="btn-floating btn-large">
+					<i class="material-icons">shopping_cart</i>
+				</a>
+			</div>
+			<div class="sidenav-cart-information center-align">
+				<span class="sidenav-cart-count" id="responsiveCartProductCount">0 </span>
+				<span class="sidenav-cart-products">товаров</span>
+				<span class="sidenav-cart-other-information">в вашей корзине</span>
+			</div>
+			<div class="sidenav-cart-going center">
+				<button class="btn waves-effect waves-light">Перейти
+				</button>
+			</div>
+		</div>
+	</div>
+	<div class="sidenav-block-bottom">
+		<div class="container">
+			<div class="sidenav-sitemap">
+				<a href="">Карта сайта</a>
+			</div>
+			<div class="sidenav-address">
+				г.Минск ул.Рафиева 52-48, Офис 902
+			</div>
+			<div class="sidenav-copyright">
+				© 2009-2019 iMedia.by
+			</div>
+		</div>
+	</div>
+</div>

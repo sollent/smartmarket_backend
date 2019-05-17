@@ -1,0 +1,183 @@
+{% extends '@AppClient/common.html.twig' %}
+
+{% block stylesheet %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('build/product.css') }}">
+{% endblock %}
+
+{% block metaInformation %}
+	<meta name="description" content="{% if product.seoInformation %}{{ product.seoInformation.description }}{% else %}{{ product.shortDescription }}{% endif %}">
+{% endblock %}
+{% block title %}{% if product.seoInformation %}{{ product.seoInformation.title }}{% else %}{{ product.name }}{% endif %}{% endblock %}
+{% block body %}
+	
+	{% block header %}
+		{{ parent() }}
+	{% endblock %}
+	
+	{% block wrapper_start %} {{ parent() }} {% endblock %}
+	
+	{% block main %}
+		
+		<div class="container">
+			<div class="product_block">
+				<div class="col s12 site-breadcrumb site-breadcrumb-product">
+					<a href="#!" class="breadcrumb">Каталог</a>
+					<a href="#!" class="breadcrumb">{{ product.category.parentCategory.name }}</a>
+					<a href="#!" class="breadcrumb">{{ product.category.name }}</a>
+					<a href="#!" class="breadcrumb">{{ product.name }}</a>
+				</div>
+				<div class="row product-row-block">
+					<h2 class="show-on-medium-and-down hide-on-large-only before-image-block-caption">{{ product.name }}</h2>
+					<div class="col xl7 l7">
+						<div class="product-image">
+							<div class="row">
+								{% if product.productStatus %}
+									<div class="product-ticket {% if product.productStatus.name %}{{ 'product-ticket--' ~ product.productStatus.name }}{% endif %}">{{ product.productStatus.title }}</div>
+								{% endif %}
+								<img class="materialboxed" src="{{ product_images_path ~ product.previewPhoto }}"
+									 alt="{% if product.seoInformation %}{{ product.seoInformation.imagesAlt }}{% else %}{{ product.name }}{% endif %}" title="{{ product.name }}">
+							</div>
+							<div class="row">
+								{% for photo in product.photos %}
+									<img class="materialboxed" src="{{ product_images_path ~ photo.image }}" alt="{% if product.seoInformation %}{{ product.seoInformation.imagesAlt }}{% else %}{{ product.name }}{% endif %}" title="{{ product.name }}">
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+					<div class="col xl5 l5 right-block">
+						<div class="row">
+							<div class="col s12">
+								<ul class="tabs">
+									<li class="tab col s6"><a class="active" href="#product-info">О продукте</a></li>
+									<li class="tab col s6"><a href="#product-characteristic">Характеристики</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="product-right-info" id="product-info">
+							<div class="product-caption">
+								<h1 class="hide-on-med-and-down">{{ product.name }}</h1>
+							</div>
+							<div class="product-description">
+								<p>{{ product.shortDescription }}</p>
+							</div>
+						</div>
+						<div id="product-characteristic">
+							<table class="striped">
+								<thead>
+								<tr>
+									<th>{{ characteristics.name }}</th>
+									<th></th>
+									<th></th>
+								</tr>
+								</thead>
+								<tbody>
+								{% for characteristic in characteristics.childCharacteristics %}
+									<tr>
+										<td>{{ characteristic.name }}</td>
+										<td></td>
+										<td>{{ characteristic.value }}</td>
+									</tr>
+								{% endfor %}
+								</tbody>
+							</table>
+						</div>
+						<div class="buy-info">
+							<div class="product-price">
+								<h3 class="product-price-caption">Цена: </h3>
+								<span class="product-price-value">{{ product.price }} BYN</span>
+								{% if product.productStatus and product.discountStatus %}
+									<span class="close-price">{{ (product.price / (1 - product.discountPercentValue / 100)) | round }} BYN</span>
+								{% endif %}
+							</div>
+							{% if colors is not null %}
+								<div class="product-color-select">
+									<div class="input-field col s12">
+										<select id="productColors">
+											<option value="" disabled>Выберите цвет:</option>
+											{% for color in colors %}
+												{% if color.name == product.productColor.name %}
+													<option selected>{{ color.name }}</option>
+												{% else %}
+													<option>{{ color.name }}</option>
+												{% endif %}
+											{% endfor %}
+										</select>
+									</div>
+								</div>
+							{% endif %}
+							<div class="add-to-cart">
+								<a data-product-id="{{ product.id }}" data-product-price="{{ product.price }}"
+								   class="btn add-to-cart"><i
+											class="material-icons right">shopping_cart</i>Добавить в корзину</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row additional-info-block">
+					<div class="col xl7 l7">
+						<div class="about-product-info">
+							{#<div class="card">#}
+							<h4>Описание DZ09</h4>
+							<p>Smart Watch DZ09 – это часы-телефон. Гаджет, который получится использовать, как
+								автономный девайс или синхронизировать с телефоном, получать уведомления, дистанционно
+								управлять интерфейсом смартфона. Честный обзор на смарт-часы DZ09 и их описание помогут
+								объективно оценить устройство и сделать правильные выводы до покупки. Российскому
+								покупателю также доступны основные расходники и запасные элементы для устройства.
+								Стоимость DZ09 начинается от $16, средний ценник составляет порядка $30.
+							</p>
+							{#</div>#}
+						</div>
+					</div>
+					<div class="col xl1 l1 vertical-lineadd-to-cart hide-on-med-and-down"></div>
+					<div class="col xl4 l4">
+						<div class="bonuses-info">
+							{#<div class="card">#}
+							<h4>Бонусы при покупке</h4>
+							<p>В зависимости от версии приложения и прошивки делать это получится с разной степенью
+								комфортности. Есть модели, позволяющие без проблем и затруднений управлять плеером, но в
+								некоторых эта возможность активируется только в том случае, если все треки вручную
+								добавить в созданный плей-лист.
+							</p>
+							{#</div>#}
+						</div>
+					</div>
+				</div>
+				{% if overview %}
+					<div class="product-overview">
+						<div class="article-content">
+							<div class="article-pudate">
+								Опубликованно: <span>{{ overview.createdAt | date }}</span>
+							</div>
+							<div class="article-likes">
+								<span>{{ overview.likes }} likes</span>
+							</div>
+							<div class="article-caption">
+								<h2>{{ overview.title }}</h2>
+							</div>
+							<div class="article-text">
+								<p>{{ overview.content | raw }}</p>
+							</div>
+						</div>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+		
+		{% include '@AppClient/components/sidenav-product-description.html.twig' %}
+	
+	{% endblock %}
+	
+	{% block wrapper_end %} {{ parent() }} {% endblock %}
+	
+	{% block footer %}
+		{{ parent() }}
+	{% endblock %}
+	
+	{% block javascripts %}
+		{{ parent() }}
+		<script src="{{ asset('assets/js/common.js') }}"></script>
+	{% endblock %}
+
+{% endblock %}

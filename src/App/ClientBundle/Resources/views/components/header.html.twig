@@ -1,0 +1,60 @@
+<div class="header active">
+	
+	{#Navbar#}
+	<div class="navbar-fixed">
+		<nav class="header-nav active">
+			<div class="container header-container">
+				<div class="nav-wrapper">
+					<div class="container nav-container">
+						<a href="{{ path('app_client_homepage') }}" class="brand-logo">
+							<img src="{{ asset('assets/img/logo1.png') }}" alt="">
+							<h2 class="brand-header">
+								Smart market
+							</h2>
+						</a>
+						<ul class="right hide-on-med-and-down">
+							<li><a class="{% if app.request.get('_route') == 'app_client_catalog' %}active{% endif %}" href="{{ path('app_client_homepage') }}">Каталог</a></li>
+							<li><a class="{% if app.request.get('_route') == 'app_client_news' %}active{% endif %}" href="{{ path('app_client_news') }}">Новости</a></li>
+							<li><a href="{{ path('app_client_contacts') }}">Контакты</a></li>
+							<li><a href="{{ path('app_client_delivery_and_payment') }}">Доставка и оплата</a></li>
+							<li><a href="{{ path('app_client_guarantee') }}">Гарантия</a></li>
+							<li><a href="{{ path('app_client_about_us') }}">О нас</a></li>
+						</ul>
+					</div>
+					<a href="" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+				</div>
+				{% block cart_header_block %}
+					{% if app.request.get('_route') != 'app_client_homepage' %}
+						<div class="nav-content">
+							<div class="cart-block">
+								<div class="row">
+									<div class="col hide-on-large-only count-in-cart">
+										<a href="">12 товаров</a>
+									</div>
+									<div class="col xl5 cart-button-col">
+										{% if app.request.get('_route') == 'app_client_cart' %}
+											<a href="{{ path('app_client_cart') }}" class="btn-floating btn-large halfway-fab teal cart-big-button">
+												<i class="material-icons">add_shopping_cart</i>
+											</a>
+										{% else %}
+											<a href="{{ path('app_client_cart') }}" class="btn-floating btn-large halfway-fab teal cart-big-button">
+												<i class="material-icons">add_shopping_cart</i>
+											</a>
+										{% endif %}
+									</div>
+									<div class="col xl7 hide-on-med-and-down">
+										<a class="header-cart-count-products"><span id="headerCountCartProduct">0</span> товаров</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					{% endif %}
+				{% endblock %}
+			</div>
+		</nav>
+	</div>
+	
+	{#Responsive menu#}
+	{% include '@AppClient/components/responsive-menu.html.twig' %}
+	
+</div>

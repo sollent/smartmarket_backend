@@ -1,0 +1,40 @@
+{% extends '@AppClient/base.html.twig' %}
+
+{% block stylesheet %}
+	<link rel="stylesheet" href="{{ asset('build/app.css') }}">
+	<link rel="stylesheet" href="{{ asset('build/custom.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/libs/animate/animate.css') }}">
+{% endblock %}
+
+{% block metaInformation %}{% endblock %}
+{% block title %}{% endblock %}
+
+{% block body %}
+	
+	{% block header %}
+		{% include '@AppClient/components/header.html.twig' %}
+	{% endblock %}
+	
+	{% block wrapper_start %}
+		{# Preloader block #}
+		
+		<div class="wrapper">
+	{% endblock %}
+	
+	{% block wrapper_end %}
+		</div>
+	{% endblock %}
+	
+	{% block footer %}
+		{% include '@AppClient/components/footer.html.twig' %}
+	{% endblock %}
+
+
+{% endblock %}
+
+{% block javascripts %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="{{ asset('/assets/libs/materialize-js/js/materialize.min.js') }}"></script>
+	<script src="{{ asset('/assets/libs/materialize-js/js/custom-initial.js') }}"></script>
+	{#<script src="{{ asset('/assets/libs/animate/wow.min.js') }}"></script>#}
+{% endblock %}

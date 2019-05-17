@@ -1,0 +1,16 @@
+{
+  "build/app.css": "/build/app.css",
+  "build/app.js": "/build/app.js",
+  "build/catalog.css": "/build/catalog.css",
+  "build/catalog.js": "/build/catalog.js",
+  "build/custom.css": "/build/custom.css",
+  "build/custom.js": "/build/custom.js",
+  "build/homepage.css": "/build/homepage.css",
+  "build/homepage.js": "/build/homepage.js",
+  "build/news.css": "/build/news.css",
+  "build/news.js": "/build/news.js",
+  "build/product.css": "/build/product.css",
+  "build/product.js": "/build/product.js",
+  "build/fonts/Mnglwrit.ttf": "/build/fonts/Mnglwrit.b8f7e8c3.ttf",
+  "build/fonts/Proxima_Nova_Black.woff": "/build/fonts/Proxima_Nova_Black.41addb46.woff"
+}

@@ -1,0 +1,307 @@
+{% extends '@AppClient/common.html.twig' %}
+
+{% block stylesheet %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/catalog.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/scss/test.css') }}">
+{% endblock %}
+
+{% block metaInformation %}
+    <meta name="description" content="{% if current_category.seoInformation %}{{ current_category.seoInformation.description }}{% else %}{{ current_category.name }}{% endif %}">
+{% endblock %}
+{% block title %}{% if current_category.seoInformation %}{{ current_category.seoInformation.title }}{% else %}{{ current_category.name }}{% endif %}{% endblock %}
+
+{% block body %}
+    
+    {% block header %}
+        {{ parent() }}
+    {% endblock %}
+    
+    {% block wrapper_start %} {{ parent() }} {% endblock %}
+	
+	{% block main %}
+        
+        <div class="container catalog_container">
+        
+			<div class="detail-mini-menu">
+				<ul>
+					<li><a href="{{ path('app_client_info_page', { slug: 'beznal' }) }}">Безнал</a></li>
+					<li><a href="{{ path('app_client_info_page', { slug: 'credit' }) }}">Кредиты</a></li>
+					<li><a href="">Барахолка</a></li>
+				</ul>
+			</div>
+			
+            <div class="main_block">
+                {#<div class="row before_catalog">#}
+                    {#<div class="col xl3">#}
+                        {#<div class="main_caption">#}
+                            {#<h2>Каталог</h2>#}
+                        {#</div>#}
+                    {#</div>#}
+                    {#<div class="col xl9">#}
+                        {#<div class="page_info">#}
+                            {#<p>При заказе от 45 рублей мы дарим вам MP4-плеер. Посоветуйте часы DZ09 другу и получите 5 рублей прямым переводом.</p>#}
+                        {#</div>#}
+                    {#</div>#}
+                {#</div>#}
+                <div class="row">
+                    <div class="col xl3 col-catalog-menu">
+                        <div class="catalog_menu">
+                            <ul class="collapsible expandable">
+								{% for category in categories %}
+                                    <li class="{% if category.id == current_category.parentCategory.id %}active{% endif %}">
+                                        <div class="collapsible-header">{{ category.name }}<i class="material-icons">arrow_drop_down</i></div>
+                                        <div class="collapsible-body">
+                                            <div class="collection">
+												{% for sub_category in category.subCategories %}
+													{% if sub_category.slug == current_category.slug %}
+                                                        <a href="{{ path('app_client_catalog', { 'slug': sub_category.slug }) }}" class="collection-item active">{{ sub_category.name}}</a>
+													{% else %}
+                                                        <a href="{{ path('app_client_catalog', { 'slug': sub_category.slug }) }}" class="collection-item">{{ sub_category.name}}</a>
+													{% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </li>
+								{% endfor %}
+                                {#<li>#}
+                                    {#<div class="collapsible-header">Микронаушники<i class="material-icons">arrow_drop_down</i></div>#}
+                                    {#<div class="collapsible-body">#}
+                                        {#<div class="collection">#}
+                                            {#<a href="" class="collection-item">Часы с циферблатом</a>#}
+                                            {#<a href="" class="collection-item">Квадратные</a>#}
+                                            {#<a href="" class="collection-item">Фирма watch</a>#}
+                                            {#<a href="" class="collection-item">Водонепроницаемые</a>#}
+                                        {#</div>#}
+                                    {#</div>#}
+                                {#</li>#}
+                                {#<li>#}
+                                    {#<div class="collapsible-header">Носимая электроника<i class="material-icons">arrow_drop_down</i></div>#}
+                                    {#<div class="collapsible-body">#}
+                                        {#<div class="collection">#}
+                                            {#<a href="" class="collection-item">Часы с циферблатом</a>#}
+                                            {#<a href="" class="collection-item">Квадратные</a>#}
+                                            {#<a href="" class="collection-item">Фирма watch</a>#}
+                                            {#<a href="" class="collection-item">Водонепроницаемые</a>#}
+                                        {#</div>#}
+                                    {#</div>#}
+                                {#</li>#}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col s10 m11 l11 xl9">
+                        <nav class="search_bar">
+                            <div class="nav-wrapper">
+                                <form>
+                                    <div class="input-field">
+                                        <input id="search" type="search" placeholder="Search" required>
+                                        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                                        <i class="material-icons">close</i>
+                                    </div>
+                                </form>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="col s2 m1 l1 hide-on-extra-large-only responsive-catalog-menu center">
+                        <a id="showCategoriesBlock" class="btn-floating catalog-menu-button modal-trigger pulse"><i class="material-icons">apps</i></a>
+                        <!--Bottom modal catalog menu-->
+                        {#<div id="responsive-catalog-menu-modal" class="modal bottom-sheet">#}
+							{#<h4>Каталог</h4>#}
+                            {#<div class="modal-close"><i class="material-icons">close</i></div>#}
+                            {#<div class="modal-content">#}
+                                {#<div class="row hide-on-small-and-down">#}
+                                    {#<div class="col s12 m6 l3">#}
+                                        {#<a href="">#}
+                                            {#<div class="card category_card hoverable">#}
+                                                {#<div class="card-title">#}
+                                                    {#<h5>Умные часы</h5>#}
+                                                {#</div>#}
+                                                {#<div class="card-image center">#}
+                                                    {#<img src="{{ asset('assets/img/watch1.jpg') }}">#}
+                                                {#</div>#}
+                                            {#</div>#}
+                                        {#</a>#}
+                                    {#</div>#}
+                                    {#<div class="col s12 m6 l3">#}
+                                        {#<a href="">#}
+                                            {#<div class="card category_card hoverable">#}
+                                                {#<div class="card-title">#}
+                                                    {#<h5>Микронаушники</h5>#}
+                                                {#</div>#}
+                                                {#<div class="card-image center">#}
+                                                    {#<img src="{{ asset('assets/img/nano1-min.png') }}">#}
+                                                {#</div>#}
+                                            {#</div>#}
+                                        {#</a>#}
+                                    {#</div>#}
+                                    {#<div class="col s12 m6 l3">#}
+                                        {#<a href="">#}
+                                            {#<div class="card category_card hoverable">#}
+                                                {#<div class="card-title">#}
+                                                    {#<h5>Электроника</h5>#}
+                                                {#</div>#}
+                                                {#<div class="card-image center">#}
+                                                    {#<img src="{{ asset('assets/img/electronics1-min.png') }}">#}
+                                                {#</div>#}
+                                            {#</div>#}
+                                        {#</a>#}
+                                    {#</div>#}
+                                    {#<div class="col s12 m6 l3">#}
+                                        {#<a href="">#}
+                                            {#<div class="card category_card hoverable">#}
+                                                {#<div class="card-title">#}
+                                                    {#<h5>Канцелярия</h5>#}
+                                                {#</div>#}
+                                                {#<div class="card-image center">#}
+                                                    {#<img src="{{ asset('assets/img/book1.jpg') }}">#}
+                                                {#</div>#}
+                                            {#</div>#}
+                                        {#</a>#}
+                                    {#</div>#}
+                                {#</div>#}
+                                {#<ul class="collection hide-on-med-and-up">#}
+                                    {#<li class="collection-item avatar">#}
+                                        {#<img src="{{ asset('assets/img/watch1.jpg') }}" alt="" class="circle">#}
+                                        {#<span class="title left">Умные часы</span>#}
+                                    {#</li>#}
+                                    {#<li class="collection-item avatar">#}
+                                        {#<img src="{{ asset('assets/img/nano1-min.png') }}" alt="" class="circle">#}
+                                        {#<span class="title left">Микронаушники</span>#}
+                                    {#</li>#}
+                                    {#<li class="collection-item avatar">#}
+                                        {#<img src="{{ asset('assets/img/electronics1-min.png') }}" alt="" class="circle">#}
+                                        {#<span class="title left">Электроника</span>#}
+                                    {#</li>#}
+                                    {#<li class="collection-item avatar">#}
+                                        {#<img src="{{ asset('assets/img/book1.jpg') }}" alt="" class="circle">#}
+                                        {#<span class="title left">Канцелярия</span>#}
+                                    {#</li>#}
+                                {#</ul>#}
+                            {#</div>#}
+                        {#</div>#}
+                       
+                    </div>
+                    <div class="row">
+                        <div class="col xl9 s12">
+                            <div class="products_content">
+                                <nav class="breadcrumb-section">
+                                    <div class="nav-wrapper">
+                                        <div class="col s12">
+                                            <a href="" class="breadcrumb">Каталог</a>
+                                            <a href="" class="breadcrumb category-name">{{ current_category.parentCategory.name }}</a>
+                                            <a href="" class="breadcrumb second-child">{{ current_category.name }}</a>
+                                                {#<a href="" class="breadcrumb">Водонепроницаемые</a>#}
+                                        </div>
+                                    </div>
+                                </nav>
+                                <div class="row">
+                                    {% if products == null %}
+                                        <h6 class="center-align">В этой категории пока нет товаров...</h6>
+                                    {% endif %}
+                                    {% for product in products %}
+                                        <div class="col xl4 l4 m6 s12">
+                                            <a href="{{ path('app_client_product', { 'productId': product.id }) }}">
+                                                <div class="card product_card hoverable">
+                                                    <div class="card-image">
+                                                        <div class="product-image">
+                                                            {% if product.productStatus %}
+                                                                <div class="product-ticket {% if product.productStatus.name %}{{ 'product-ticket--' ~ product.productStatus.name }}{% endif %}">{{ product.productStatus.title }}</div>
+															{% endif %}
+                                                            <img src="{{ asset('uploads/img/product/' ~ product.previewPhoto) }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-content">
+                                                        <h2 style="width: 260px; overflow: hidden" class="card-title">{{ product.name }}</h2>
+                                                        <p style="height: 66px; overflow: hidden">{{ product.shortDescription | slice(0.50) }}...</p>
+                                                        <h4 class="price-number {% if product.productStatus and product.discountStatus %}price-number-with-discount{% endif %}">
+                                                            {{ product.price }} BYN
+															{% if product.productStatus and product.discountStatus %}
+                                                                <span class="close-price">{{ (product.price / (1 - product.discountPercentValue / 100)) | round }} BYN</span>
+															{% endif %}
+                                                        </h4>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            
+                            <div class="pagination-block center">
+                                <ul class="pagination">
+                                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+                                    <li class="active"><a href="#!">1</a></li>
+                                    <li class="waves-effect"><a href="#!">2</a></li>
+                                    <li class="waves-effect"><a href="#!">3</a></li>
+                                    <li class="waves-effect"><a href="#!">4</a></li>
+                                    <li class="waves-effect"><a href="#!">5</a></li>
+                                    <li class="waves-effect"><a href="#!">6</a></li>
+                                    <li class="waves-effect"><a href="#!">7</a></li>
+                                    <li class="waves-effect"><a href="#!">8</a></li>
+                                    <li class="waves-effect"><a href="#!">9</a></li>
+                                    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                                </ul>
+                            </div>
+                        
+                        </div>
+                    </div>
+                
+                </div>
+            
+            </div>
+        </div>
+        
+        <div class="categories-block not-visible">
+			<div class="categories-header">
+				<button id="close-categories"><i class="material-icons">close</i></button>
+			</div>
+            <div class="categories-menu">
+				<ul class="collapsible">
+					{% for category in categories  %}
+						<li>
+							<div class="collapsible-header collapsible-header_first"><i class="material-icons">filter_drama</i>{{ category.name }}<i class="material-icons arrow-category-icon">arrow_drop_down</i></div>
+							<div class="collapsible-body">
+								<ul class="sub-menu collapsible">
+									{% for sub_category in category.subCategories %}
+                                        {% if sub_category.subCategories | length > 0 %}
+                                            <li>
+                                                <div class="collapsible-header">{{ sub_category.name }}<i class="material-icons arrow-category-icon">arrow_drop_down</i></div>
+                                                <div class="collapsible-body">
+                                                    <ul class="two-sub-menu collapsible">
+														{% for next_sub_category in sub_category.subCategories %}
+                                                            <li>
+                                                                <div class="collapsible-header">{{ next_sub_category.name }}</div>
+                                                                <div class="collapsible-body"></div>
+                                                            </li>
+														{% endfor %}
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        {% else %}
+                                            <li><a href="{{ path('app_client_catalog', { 'slug': sub_category.slug }) }}">{{ sub_category.name }}</a></li>
+                                        {% endif %}
+									{% endfor %}
+								</ul>
+							</div>
+						</li>
+					{% endfor %}
+				</ul>
+            </div>
+        </div>
+	
+	{% endblock %}
+    
+    {% block wrapper_end %} {{ parent() }} {% endblock %}
+    
+    {% block footer %}
+        {{ parent() }}
+    {% endblock %}
+    
+    {% block javascripts %}
+        {{ parent() }}
+        <script src="{{ asset('assets/js/common.js') }}"></script>
+        {#<script src="https://cdn.jsdelivr.net/mojs/0.265.6/mo.min.js"></script>#}
+        <script src="{{ asset('assets/libs/materialize-js/js/test.js') }}"></script>
+	{% endblock %}
+ 
+{% endblock %}

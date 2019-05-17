@@ -1,0 +1,52 @@
+{% extends '@AppClient/common.html.twig' %}
+
+{% block stylesheet %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('build/news.css') }}">
+{% endblock %}
+
+{% block title %} Доставка и оплата {% endblock %}
+
+{% block body %}
+	
+	{% block header %}
+		{{ parent() }}
+	{% endblock %}
+	
+	{% block wrapper_start %} {{ parent() }} {% endblock %}
+	
+	{% block main %}
+	
+		<div class="shared_block">
+			<div class="container delivery-and-payment-container">
+				<div class="shared_caption">
+					<h1>Доставка</h1>
+				</div>
+				<div class="shared-content">
+					<p>Доставка по городу Минску осуществляется бесплатно в день заказа. Доставка товаров попредзаказу осуществляется в течение 10-14 дней с момента оформления заказа.</p>
+					<p>Доставка по Беларуси осуществляется в виде посылки по почте наложенным платежомили курьером (в зависимости от габаритов товара и желания клиента)</p>
+				</div>
+				<div class="shared_caption">
+					<h1>Оплата</h1>
+				</div>
+				<div class="shared-content">
+					<p>- наличными оплата производится наличными в момент получения товара, после егопроверки и подписания гарантийного талона.</p>
+					<p>- наложенным платежом – оплата производится в почтовом отделении в момент получениятовара вместе с подписанным гарантийным талоном</p>
+					<p>- по безналичному расчету: путем перевода денежных средств на безналичный счетпродавца с расчетного счета покупателя или посредством оплаты через кассу банка.Подробности уточняйте у менеджера.</p>
+				</div>
+			</div>
+		</div>
+	
+	{% endblock %}
+	
+	{% block wrapper_end %} {{ parent() }} {% endblock %}
+	
+	{% block footer %}
+		{{ parent() }}
+	{% endblock %}
+	
+	{% block javascripts %}
+		{{ parent() }}
+	{% endblock %}
+
+{% endblock %}
